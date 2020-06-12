@@ -1,5 +1,5 @@
 import { Color, Mesh, Object3D, Quaternion } from 'three';
-import { assertIsMaterial } from './helpers';
+import { assertIsMaterialWithColor } from './helpers';
 import Line from '../primitives/Line';
 import LineSegments from '../primitives/LineSegment';
 
@@ -28,7 +28,10 @@ export const setColor = (
   object: Mesh | Line | LineSegments,
   color: string | number | RosMessage.Color,
 ) => {
-  assertIsMaterial(object.material);
+  console.log("¡¡¡¡ assertIsMeshBasicMaterial !!!!")
+  console.log(object)
+  assertIsMaterialWithColor(object.material);
+  
   if (typeof color === 'string' || typeof color === 'number') {
     object.material.color = new Color(color);
   } else {
