@@ -5,7 +5,6 @@ import {
   Material,
   Mesh,
   MeshBasicMaterial,
-  MeshStandardMaterial,
   Object3D,
   Quaternion,
   TorusGeometry,
@@ -131,14 +130,6 @@ export function assertIsMeshBasicMaterial(
 ): asserts val is MeshBasicMaterial {
   if (!(val instanceof MeshBasicMaterial)) {
     throw new TypeError(`Expected 'val' to be MeshBasicMaterial`);
-  }
-}
-
-export function assertIsMaterialWithColor(
-  val: any,
-): asserts val is MeshBasicMaterial {
-  if (!('color' in val)) {
-    throw new TypeError(`Expected 'val' to be MeshBasicMaterial with color`);
   }
 }
 
