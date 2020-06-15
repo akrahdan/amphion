@@ -1,6 +1,6 @@
 import { DefaultLoadingManager, LoadingManager, Object3D } from 'three';
 import { assertIsDefined } from '../utils/helpers';
-import ROSLIB, { Ros } from '@robostack/roslib';
+import ROSLIB, { Ros } from 'roslib';
 import { DEFAULT_OPTIONS_ROBOTMODEL } from '../utils/constants';
 // @ts-ignore
 import URDFLoader from 'urdf-js/umd/URDFLoader';

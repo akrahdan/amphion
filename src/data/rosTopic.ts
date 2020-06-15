@@ -1,9 +1,9 @@
 import { DataSource } from './index';
-import ROSLIB from '@robostack/roslib';
+import { Message, Ros, Topic } from 'roslib';
 import xs, { Listener, Producer, Stream } from 'xstream';
 
 interface RosTopicDataSourceOptions {
-  ros: ROSLIB.Ros;
+  ros: Ros;
   topicName: string;
   messageType: string;
   memory?: boolean;
@@ -16,16 +16,16 @@ interface RosTopicDataSourceOptions {
   queueLength?: number;
 }
 
-export class RosTopicDataSource<T extends ROSLIB.Message> implements DataSource<T> {
+export class RosTopicDataSource<T extends Message> implements DataSource<T> {
   public readonly createdAt: Date = new Date();
   public readonly hasMemory: boolean;
-  private readonly ros: ROSLIB.Ros;
-  private readonly topic: ROSLIB.Topic;
+  private readonly ros: Ros;
+  private readonly topic: Topic;
   private readonly producer: Producer<T>;
   private stream: Stream<T>;
   private isStreamLive: boolean = false;
   private isStreamPaused: boolean = false;
-  private internalListener: ((message: ROSLIB.Message) => void) | null = null;
+  private internalListener: ((message: Message) => void) | null = null;
   private readonly listeners = new Set<Listener<T>>();
   private readonly rosConnectionHook: (() => void) | null = null;
   private rosCloseHook: (() => void) | null = null;
@@ -49,13 +49,13 @@ export class RosTopicDataSource<T extends ROSLIB.Message> implements DataSource<
     if (options.queueLength) {
       topicOptions.queue_length = options.queueLength;
     }
-    this.topic = new ROSLIB.Topic(topicOptions);
+    this.topic = new Topic(topicOptions);
     this.producer = {
       start: listener => {
         if (!this.rosCloseHook && !this.rosErrorHook) {
           this.addRosHealthHooks();
         }
-        this.internalListener = (message: ROSLIB.Message) => {
+        this.internalListener = (message: Message) => {
           if (this.isStreamPaused) {
             return;
           }

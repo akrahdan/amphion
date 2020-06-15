@@ -1,4 +1,4 @@
-import { MathUtils, Mesh as THREEMesh } from 'three';
+import { Math, Mesh as THREEMesh } from 'three';
 
 import * as TransformUtils from '../utils/transform';
 
@@ -25,10 +25,10 @@ class Mesh extends THREEMesh {
   setAlpha(alpha: number) {
     if (Array.isArray(this.material)) {
       this.material.forEach(material => {
-        material.opacity = MathUtils.clamp(alpha, 0, 1);
+        material.opacity = Math.clamp(alpha, 0, 1);
       });
     } else {
-      this.material.opacity = MathUtils.clamp(alpha, 0, 1);
+      this.material.opacity = Math.clamp(alpha, 0, 1);
     }
   }
 }

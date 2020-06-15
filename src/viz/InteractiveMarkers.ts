@@ -1,6 +1,6 @@
 import debounce from 'lodash.debounce';
 import { ControlsManager, RAYCASTER_EVENTS } from 'three-freeform-controls';
-import ROSLIB, { Ros, Topic } from '@robostack/roslib';
+import ROSLIB, { Ros, Topic } from 'roslib';
 import LegacyCore from '../core';
 import {
   DEFAULT_OPTIONS_INTERACTIVE_MARKER,

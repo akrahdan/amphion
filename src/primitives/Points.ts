@@ -17,7 +17,7 @@ class Points extends ThreePoints {
     super();
     this.geometry = new Geometry();
     this.material = new PointsMaterial({
-      color: VertexColors,
+      vertexColors: VertexColors,
     });
   }
 

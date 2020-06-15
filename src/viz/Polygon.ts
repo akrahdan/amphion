@@ -7,7 +7,7 @@ import {
 } from '../utils/constants';
 import Group from '../primitives/Group';
 import Line from '../primitives/Line';
-import { Ros } from '@robostack/roslib';
+import { Ros } from 'roslib';
 
 class Polygon extends LegacyCore {
   public readonly object: Group;

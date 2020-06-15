@@ -8,7 +8,7 @@ import LiveCore from '../core/live';
 import { DataSource } from '../data';
 
 class Pose extends LiveCore<RosMessage.PoseStamped, Group> {
-  private primitive: Arrow | Axes | LineArrow | any;
+  private primitive: Arrow | Axes | LineArrow | null;
   constructor(
     source: DataSource<RosMessage.PoseStamped>,
     options = DEFAULT_OPTIONS_POSE,
@@ -30,7 +30,7 @@ class Pose extends LiveCore<RosMessage.PoseStamped, Group> {
 
   static getNewPrimitive(options: { [k: string]: any }) {
     const { type } = options;
-    let newObject:any = null;
+    let newObject = null;
 
     switch (type) {
       case POSE_OBJECT_TYPES.arrow:

@@ -5,7 +5,7 @@ import {
   Points as ThreePoints,
   PointsMaterial,
   TextureLoader,
-  DynamicDrawUsage
+  VertexColors,
 } from 'three';
 import { LASERSCAN_STYLES } from './constants';
 import { assertIsDefined } from './helpers';
@@ -54,17 +54,15 @@ class Points {
     }
 
     this.geometry = new BufferGeometry();
-    this.positions.usage = DynamicDrawUsage;
-    this.geometry.addAttribute('position', this.positions);
-    this.colors.usage = DynamicDrawUsage;
-    this.geometry.addAttribute('color', this.colors);
+    this.geometry.addAttribute('position', this.positions.setDynamic(true));
+    this.geometry.addAttribute('color', this.colors.setDynamic(true));
 
     this.material = new PointsMaterial({
       color: 0x888888,
       size,
       ...options,
     });
-
+    this.material.vertexColors = VertexColors;
     this.material.transparent = true;
     this.material.opacity = alpha;
 

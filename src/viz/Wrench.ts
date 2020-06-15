@@ -29,7 +29,7 @@ class Wrench extends LiveCore<RosMessage.WrenchStamped, Group> {
 
   static getNewPrimitive(options: { type: string }) {
     const { type } = options;
-    let newObject:any = null;
+    let newObject = null;
 
     switch (type) {
       case WRENCH_OBJECT_TYPES.arrow:

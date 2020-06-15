@@ -1,4 +1,4 @@
-import { MathUtils as THREEMath, MeshStandardMaterial, TorusGeometry } from 'three';
+import { Math as THREEMath, MeshStandardMaterial, TorusGeometry } from 'three';
 import Arrow from './Arrow';
 import Cone from './Cone';
 import {

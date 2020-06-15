@@ -7,7 +7,7 @@ import {
 } from '../utils/constants';
 import Group from '../primitives/Group';
 import Box from '../primitives/Box';
-import { Ros } from '@robostack/roslib';
+import { Ros } from 'roslib';
 import { Object3D } from 'three';
 
 class CollisionObject extends LegacyCore {

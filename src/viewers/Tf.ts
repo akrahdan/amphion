@@ -1,5 +1,5 @@
 import { Group, Object3D, Quaternion, Vector3 } from 'three';
-import ROSLIB, { Ros } from '@robostack/roslib';
+import ROSLIB, { Ros } from 'roslib';
 
 import Viewer3d from './3d';
 import { DEFAULT_OPTIONS_TF_VIEWER } from '../utils/constants';

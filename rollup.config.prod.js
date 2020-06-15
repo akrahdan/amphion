@@ -9,7 +9,7 @@ export default {
   input: 'src/index.ts',
   plugins: [
     replace({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     typescript({ useTsconfigDeclarationDir: true }),
     commonjs({ extensions: ['.js', '.ts'] }),

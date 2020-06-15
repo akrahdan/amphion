@@ -154,8 +154,8 @@ class LaserScan extends LiveCore<RosMessage.LaserScan, Group> {
     const { size } = this.options;
     const { intensities, ranges } = message;
     const n = ranges.length;
-    const positions: any[] = [];
-    const colors: any[] = [];
+    const positions = [];
+    const colors = [];
 
     if (size < 0.001 || !size) {
       return;
