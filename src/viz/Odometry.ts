@@ -1,4 +1,4 @@
-import { Math, Object3D, Quaternion, Vector3 } from 'three';
+import { MathUtils, Object3D, Quaternion, Vector3 } from 'three';
 import {
   DEFAULT_OPTIONS_ODOMETRY,
   ODOMETRY_OBJECT_TYPES,
@@ -34,7 +34,7 @@ class Odometry extends LiveCore<RosMessage.Odometry, Group> {
   }
 
   setKeepSize(size: number) {
-    let newKeepList = [];
+    let newKeepList: Object3D[] = [];
 
     if (size === 0) {
       this.keepSize = 0;
@@ -47,7 +47,7 @@ class Odometry extends LiveCore<RosMessage.Odometry, Group> {
         this.object?.remove(this.objectPool[i]);
       }
 
-      const slicedList = this.objectPool.slice(
+      const slicedList: Object3D[] = this.objectPool.slice(
         this.objectPool.length - size,
         this.objectPool.length,
       );
@@ -174,7 +174,7 @@ class Odometry extends LiveCore<RosMessage.Odometry, Group> {
 
       this.objectPool.push(newObject);
       this.currentObjectIndex += 1;
-      this.currentObjectIndex = Math.clamp(
+      this.currentObjectIndex = MathUtils.clamp(
         this.currentObjectIndex,
         0,
         this.keepSize - 1,

@@ -6,7 +6,7 @@ import {
 } from '../utils/constants';
 import Group from '../primitives/Group';
 import CollisionObject from './CollisionObject';
-import { Ros } from 'roslib';
+import { Ros } from '@robostack/roslib';
 import { assertIsDefined } from '../utils/helpers';
 import { URDFJoint } from 'urdf-js/src/URDFClasses';
 

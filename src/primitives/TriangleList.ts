@@ -18,7 +18,7 @@ class TriangleList extends Mesh {
     super();
     this.geometry = new Geometry();
     this.material = new MeshBasicMaterial({
-      vertexColors: FaceColors,
+      color: FaceColors,
     });
     this.material.side = DoubleSide;
   }
@@ -29,7 +29,7 @@ class TriangleList extends Mesh {
     options: { scale: RosMessage.Point },
   ) {
     const vertices: Vector3[] = [];
-    const faces = [];
+    const faces: Face3[] = [];
     const {
       scale: { x, y, z },
     } = options;

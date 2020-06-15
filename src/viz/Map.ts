@@ -98,7 +98,7 @@ class Map extends LiveCore<RosMessage.OccupancyGrid, Plane> {
     } = message;
 
     const imageData = new ImageData(width, height);
-    let bitmapCanvas = null;
+    let bitmapCanvas:any = null;
 
     switch (colorScheme) {
       case MAP_COLOR_SCHEMES.MAP:

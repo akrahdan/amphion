@@ -6,7 +6,7 @@ import {
   MESSAGE_TYPE_DISPLAYTRAJECTORY,
 } from '../utils/constants';
 import Group from '../primitives/Group';
-import { Ros } from 'roslib';
+import { Ros } from '@robostack/roslib';
 import { URDFJoint, URDFRobot } from 'urdf-js/src/URDFClasses';
 
 class DisplayTrajectory extends LegacyCore {
