@@ -133,6 +133,14 @@ export function assertIsMeshBasicMaterial(
   }
 }
 
+export function assertIsMaterialWithColor(
+  val: any,
+): asserts val is MeshBasicMaterial {
+  if (!('color' in val)) {
+    throw new TypeError(`Expected 'val' to be MeshBasicMaterial with color`);
+  }
+}
+
 export function assertBehavesLikeArray<T>(val: any): asserts val is Array<T> {
   if (val.length === undefined) {
     throw new TypeError(`Expected 'val' to be an array`);
