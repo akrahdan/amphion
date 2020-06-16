@@ -8,7 +8,7 @@ import LiveCore from '../core/live';
 import { DataSource } from '../data';
 
 class Pose extends LiveCore<RosMessage.PoseStamped, Group> {
-  private primitive: Arrow | Axes | LineArrow | null;
+  private primitive: Arrow | Axes | LineArrow | any;
   constructor(
     source: DataSource<RosMessage.PoseStamped>,
     options = DEFAULT_OPTIONS_POSE,
