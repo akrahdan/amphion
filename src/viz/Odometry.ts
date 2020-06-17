@@ -1,4 +1,4 @@
-import { Math, Object3D, Quaternion, Vector3 } from 'three';
+import { MathUtils, Object3D, Quaternion, Vector3 } from 'three';
 import {
   DEFAULT_OPTIONS_ODOMETRY,
   ODOMETRY_OBJECT_TYPES,
@@ -174,7 +174,7 @@ class Odometry extends LiveCore<RosMessage.Odometry, Group> {
 
       this.objectPool.push(newObject);
       this.currentObjectIndex += 1;
-      this.currentObjectIndex = Math.clamp(
+      this.currentObjectIndex = MathUtils.clamp(
         this.currentObjectIndex,
         0,
         this.keepSize - 1,

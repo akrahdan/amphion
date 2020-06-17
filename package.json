@@ -1,11 +1,11 @@
 {
-  "name": "amphion",
-  "version": "0.1.20",
+  "name": "@robostack/amphion",
+  "version": "0.1.21",
   "description": "roslibjs based web visualization library",
   "main": "./build/amphion.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rapyuta-robotics/amphion.git"
+    "url": "https://github.com/robostack/amphion.git"
   },
   "keywords": [
     "ros",
@@ -17,7 +17,7 @@
   "author": "Rapyuta Robotics <support@rapyuta-robotics.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/rapyuta-robotics/amphion/issues"
+    "url": "https://github.com/robostack/amphion/issues"
   },
   "dependencies": {
     "@juggle/resize-observer": "^2.2.1",
@@ -25,17 +25,16 @@
     "pcl-decoder": "^0.1.7",
     "randomcolor": "^0.5.4",
     "rosbag": "^2.2.1",
-    "roslib": "^1.0.1",
+    "roslib": "npm:@robostack/roslib@^1.1.0",
     "stats-js": "^1.0.1",
     "three-freeform-controls": "0.0.18",
     "three-spritetext": "^1.1.1",
     "urdf-js": "^0.0.14",
-    "xstream": "^11.11.0"
-  },
-  "peerDependencies": {
-    "three": "^0.109.0"
+    "xstream": "^11.11.0",
+    "three": "^0.117.0"
   },
   "scripts": {
+    "tsc": "tsc",
     "build": "rollup -c rollup.config.prod.js",
     "postbuild": "rollup -c rollup.wasmless.config.prod.js",
     "examples": "webpack-dev-server --config webpack.config.js",
@@ -49,7 +48,7 @@
     "@babel/preset-env": "^7.5.4",
     "@types/lodash.debounce": "^4.0.6",
     "@types/randomcolor": "^0.5.3",
-    "@types/roslib": "^1.0.0",
+    "@types/roslib": "^1.0.1",
     "babel-loader": "^8.0.6",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.0.2",
