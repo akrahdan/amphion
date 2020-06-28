@@ -59,20 +59,20 @@ class PointCloud extends LiveCore<RosMessage.PointCloud2, Points> {
       color: VertexColors,
     });
     const geometry = new BufferGeometry();
-    geometry.addAttribute(
+    geometry.setAttribute(
       'position',
       new BufferAttribute(
         new Float32Array(MAX_POINTCLOUD_POINTS * 3),
         3,
     ).setUsage(DynamicDrawUsage),);
-    geometry.addAttribute(
+    geometry.setAttribute(
       'color',
       new BufferAttribute(
         new Float32Array(MAX_POINTCLOUD_POINTS * 3),
         3,
       ).setUsage(DynamicDrawUsage),
     );
-    geometry.addAttribute(
+    geometry.setAttribute(
       'normal',
       new BufferAttribute(
         new Float32Array(MAX_POINTCLOUD_POINTS * 3),

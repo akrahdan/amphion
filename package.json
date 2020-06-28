@@ -1,6 +1,6 @@
 {
   "name": "@robostack/amphion",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "roslibjs based web visualization library",
   "main": "./build/amphion.js",
   "repository": {

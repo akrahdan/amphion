@@ -55,8 +55,8 @@ class Points {
     }
 
     this.geometry = new BufferGeometry();
-    this.geometry.addAttribute('position', this.positions.setUsage(DynamicDrawUsage));
-    this.geometry.addAttribute('color', this.colors.setUsage(DynamicDrawUsage));
+    this.geometry.setAttribute('position', this.positions.setUsage(DynamicDrawUsage));
+    this.geometry.setAttribute('color', this.colors.setUsage(DynamicDrawUsage));
 
     this.material = new PointsMaterial({
       color: 0x888888,
