@@ -4,6 +4,7 @@ import {
   Points,
   PointsMaterial,
   VertexColors,
+  DynamicDrawUsage
 } from 'three';
 import {
   DEFAULT_OPTIONS_POINTCLOUD,
@@ -55,29 +56,28 @@ class PointCloud extends LiveCore<RosMessage.PointCloud2, Points> {
     });
     const cloudMaterial = new PointsMaterial({
       size: this.options.size,
-      vertexColors: VertexColors,
+      color: VertexColors,
     });
     const geometry = new BufferGeometry();
-    geometry.addAttribute(
+    geometry.setAttribute(
       'position',
       new BufferAttribute(
         new Float32Array(MAX_POINTCLOUD_POINTS * 3),
         3,
-      ).setDynamic(true),
-    );
-    geometry.addAttribute(
+    ).setUsage(DynamicDrawUsage),);
+    geometry.setAttribute(
       'color',
       new BufferAttribute(
         new Float32Array(MAX_POINTCLOUD_POINTS * 3),
         3,
-      ).setDynamic(true),
+      ).setUsage(DynamicDrawUsage),
     );
-    geometry.addAttribute(
+    geometry.setAttribute(
       'normal',
       new BufferAttribute(
         new Float32Array(MAX_POINTCLOUD_POINTS * 3),
         3,
-      ).setDynamic(true),
+      ).setUsage(DynamicDrawUsage),
     );
     geometry.setDrawRange(0, 0);
     geometry.computeBoundingSphere();
