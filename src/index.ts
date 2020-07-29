@@ -32,8 +32,10 @@ import * as CONSTANTS from './utils/constants';
 import { RosTopicDataSource } from './data/rosTopic';
 import RosbagBucket from './core/rosbagBucket';
 import { RosbagDataSource } from './data/rosBag';
+import { EditorControls } from './utils/editorControls';
 
 export default {
+  EditorControls,
   CollisionObject,
   DepthCloud,
   DisplayTrajectory,

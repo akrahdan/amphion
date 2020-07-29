@@ -15,21 +15,22 @@ viewer2d.setContainer(document.getElementById('scene2d'));
 ros.connect(CONFIG.ROS_WEBSOCKET_ENDPOINT);
 
 // Add path
-const path = new Amphion.Path(ros, '/path_rosbag');
+const path = new Amphion.Path(new Amphion.RosTopicDataSource({ros: ros, topicName: '/move_group/display_planned_path'}));
 path.subscribe();
 scene.addVisualization(path);
 
 // Add Marker
-const marker = new Amphion.Marker(ros, '/cube_list');
+const marker = new Amphion.Marker(new Amphion.RosTopicDataSource({ros: ros, topicName: '/cube_list'}));
 marker.subscribe();
 scene.addVisualization(marker);
 
 // Add Marker Aray
-const markerArray = new Amphion.MarkerArray(ros, '/markers_demo');
+const markerArray = new Amphion.MarkerArray(new Amphion.RosTopicDataSource({ros: ros, topicName: '/markers_demo'}));
+
 markerArray.subscribe();
 scene.addVisualization(markerArray);
 
 // Add Odometry
-const odometry = new Amphion.Odometry(ros, '/odom_rosbag');
+const odometry = new Amphion.Odometry(new Amphion.RosTopicDataSource({ros: ros, topicName: '/tricycle_drive_controller/odom'}));
 odometry.subscribe();
 scene.addVisualization(odometry);

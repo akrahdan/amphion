@@ -7,7 +7,7 @@ import {
   Color,
   Vector3
 } from 'three';
-import { EditorControls } from '../../src/utils/editorControls';
+
 import ROSLIB from 'roslib';
 import Amphion from '../../build/amphion';
 import CONFIG from "../config";
@@ -22,7 +22,7 @@ function init() {
   camera.position.set(0.3,0.2, 0.3);
   camera.lookAt(new Vector3());
   scene = new Scene();
-  scene.background = new Color(0xffffff);
+  scene.background = new Color(0x222222);
 
   // lights
   const light1 = new DirectionalLight(0xffffff);
@@ -35,7 +35,7 @@ function init() {
   scene.add(light3);
 
   // renderer
-  renderer = new WebGLRenderer({ antialias: true });
+  renderer = new WebGLRenderer({ antialias: false });
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   document.getElementById('scene').appendChild(renderer.domElement);
@@ -43,7 +43,7 @@ function init() {
   window.addEventListener('resize', onWindowResize, false);
   render();
 
-  controls = new EditorControls(camera, renderer.domElement);
+  controls = new Amphion.EditorControls(camera, renderer.domElement);
   controls.enableDamping = true;
 }
 function onWindowResize() {
@@ -64,8 +64,13 @@ function render() {
 function addMarker() {
   const ros = new ROSLIB.Ros();
   ros.connect(CONFIG.ROS_WEBSOCKET_ENDPOINT);
-  const marker = new Amphion.Marker(ros, '/cube_list');
+  const marker = new Amphion.Marker(new Amphion.RosTopicDataSource({
+    ros: ros,
+    topicName: '/cube_list',
+    messageType: Amphion.CONSTANTS.MESSAGE_TYPE_MARKER,
+  }));
   marker.subscribe();
   marker.object.position.set(-0.04, -1.24, -0.04);
   scene.add(marker.object);
+
 }

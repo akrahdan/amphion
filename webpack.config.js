@@ -1,6 +1,6 @@
 module.exports = {
   devServer: {
-    compress: true,
+    compress: false,
     hot: true,
     openPage: '/examples/basic',
     port: 9000,

@@ -11,7 +11,7 @@ declare namespace RosMessage {
     header?: Header;
   }
   interface Duration {
-    sec: number;
+    secs: number;
     nsec: number;
   }
   interface Vector3 {

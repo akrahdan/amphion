@@ -92,7 +92,7 @@ class DisplayTrajectory extends LegacyCore {
     points.forEach(point => {
       const {
         positions,
-        time_from_start: { nsec, sec },
+        time_from_start: { nsec, secs },
       } = point;
       this.pointsUpdateIds.push(
         window.setTimeout(() => {
@@ -104,12 +104,12 @@ class DisplayTrajectory extends LegacyCore {
               joint.setAngle(positions[index]);
             }
           });
-        }, 1000 * sec + nsec / 1000000),
+        }, 1000 * secs + nsec / 1000000),
       );
     });
     if (points.length > 0) {
       const {
-        time_from_start: { nsec: lastNsec, sec: lastSec },
+        time_from_start: { nsec: lastNsec, secs: lastSec },
       } = points[points.length - 1];
       this.poseRemovalId = window.setTimeout(() => {
         this.robotClone.parent?.remove(this.robotClone);

@@ -74,8 +74,7 @@ export default class MarkerManager {
     // all types, hence any
     const markerObject: any = this.getMarkerOrCreate(marker);
     const markerId = MarkerManager.getId(marker);
-
-    this.markerLifetime.track(markerId, lifetime.sec);
+    this.markerLifetime.track(markerId, lifetime.secs);
 
     if (markerObject.updatePoints) {
       markerObject.updatePoints(points, colors, marker);

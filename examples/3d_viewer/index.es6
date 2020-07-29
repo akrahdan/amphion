@@ -7,15 +7,15 @@ const ros = new ROSLIB.Ros();
 const viewer = new Amphion.Viewer3d();
 
 viewer.setContainer(document.getElementById('scene'));
-ros.connect(CONFIG.ROS_WEBSOCKET_ENDPOINT);
+ros.connect("ws://localhost:9090");
 
 // Add path
-const path = new Amphion.Path(ros, '/path_rosbag');
+const path = new Amphion.Path(new Amphion.RosTopicDataSource({ros: ros, topicName: '/path_rosbag'});
 path.subscribe();
 viewer.addVisualization(path);
 
 // Add Marker
-const marker = new Amphion.Marker(ros, '/cube_list');
+const marker = new Amphion.Marker(new Amphion.RosTopicDataSource({ros: ros, topicName: '/cube_list'});
 marker.subscribe();
 viewer.addVisualization(marker);
 
@@ -25,5 +25,5 @@ const robotModel = new Amphion.RobotModel(ros, 'robot_description', {
     franka_description: 'https://storage.googleapis.com/kompose-artifacts/franka_description',
   }
 });
-robotModel.load();
+robotModel.loadFromParam();
 viewer.addVisualization(robotModel);

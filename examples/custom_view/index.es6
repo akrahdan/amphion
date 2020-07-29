@@ -3,7 +3,7 @@ import {
   PerspectiveCamera,
   Vector3
 } from 'three';
-import { EditorControls } from '../../src/utils/editorControls';
+
 import ROSLIB from 'roslib';
 import Amphion from '../../build/amphion';
 import CONFIG from "../config";
@@ -28,7 +28,7 @@ function init() {
   window.addEventListener('resize', onWindowResize, false);
   render();
 
-  controls = new EditorControls(camera, renderer.domElement);
+  controls = new Amphion.EditorControls(camera, renderer.domElement);
   controls.enableDamping = true;
 }
 function onWindowResize() {
@@ -49,7 +49,11 @@ function render() {
 function addMarker() {
   const ros = new ROSLIB.Ros();
   ros.connect(CONFIG.ROS_WEBSOCKET_ENDPOINT);
-  const marker = new Amphion.Marker(ros, '/cube_list');
+  const marker = new Amphion.Marker(new Amphion.RosTopicDataSource({
+    ros: ros,
+    topicName: '/cube_list',
+    messageType: Amphion.CONSTANTS.MESSAGE_TYPE_MARKER,
+  }));
   marker.subscribe();
   marker.object.position.set(-0.04, -1.24, -0.04);
   scene.add(marker.object);
