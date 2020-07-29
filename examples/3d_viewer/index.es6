@@ -10,12 +10,12 @@ viewer.setContainer(document.getElementById('scene'));
 ros.connect("ws://localhost:9090");
 
 // Add path
-const path = new Amphion.Path(new Amphion.RosTopicDataSource({ros: ros, topicName: '/path_rosbag'});
+const path = new Amphion.Path(new Amphion.RosTopicDataSource({ros: ros, topicName: '/path_rosbag'}));
 path.subscribe();
 viewer.addVisualization(path);
 
 // Add Marker
-const marker = new Amphion.Marker(new Amphion.RosTopicDataSource({ros: ros, topicName: '/cube_list'});
+const marker = new Amphion.Marker(new Amphion.RosTopicDataSource({ros: ros, topicName: '/cube_list'}));
 marker.subscribe();
 viewer.addVisualization(marker);
 
