@@ -16,6 +16,7 @@ class Text extends Mesh {
     super();
     const loader = new FontLoader();
 
+    this.material = new MeshBasicMaterial({ color: 0xdddddd });
     loader.load(
       'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/fonts/helvetiker_regular.typeface.json',
       font => {
@@ -29,7 +30,6 @@ class Text extends Mesh {
           bevelSize: 8,
           bevelSegments: 5,
         });
-        this.material = new MeshBasicMaterial({ color: 0xdddddd });
       },
     );
 
