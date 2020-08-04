@@ -26,9 +26,9 @@ class TfViewer extends Viewer3d {
       ...DEFAULT_OPTIONS_TF_VIEWER,
       ...options,
     });
-    const { onFramesListUpdate } = this.options;
+
     this.ros = rosInstance;
-    this.onFramesListUpdate = onFramesListUpdate || (() => {});
+    this.onFramesListUpdate = options.onFramesListUpdate || (() => {});
 
     this.initRosEvents();
     this.getTFMessages = this.getTFMessages.bind(this);

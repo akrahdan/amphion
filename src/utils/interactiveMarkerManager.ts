@@ -75,13 +75,16 @@ export default class InteractiveMarkerManager {
     controlsManager: ControlsManager,
     visible: boolean,
   ) {
-    const {
+    let {
       controls,
       header: { frame_id },
       name,
       pose: { orientation, position },
       scale,
     } = interactiveMarker;
+    if (scale === 0) {
+      scale = 1;
+    }
     const { manager, object } = this.getMarkerManagerOrCreate(name);
 
     object.visible = visible;
@@ -124,7 +127,6 @@ export default class InteractiveMarkerManager {
         });
         controls.scale.set(scale, scale, scale);
         controls.visible = visible;
-
         InteractiveMarkerManager.enableControls(
           object,
           control.interaction_mode,
@@ -179,6 +181,7 @@ export default class InteractiveMarkerManager {
     givenColor: string,
   ) {
     controls.showAll(false);
+
     const controlsManagerOrientation = new Quaternion();
     controls.getWorldQuaternion(controlsManagerOrientation);
     const controlsManagerRotation = new Euler().setFromQuaternion(

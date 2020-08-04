@@ -1,6 +1,7 @@
 import getNewPrimitive, { MarkerObjectType } from './markerTypes';
 import MarkerLifetime from './markerLifetime';
 import { Object3D } from 'three';
+import LineSegments from '../primitives/LineSegment';
 
 export default class MarkerManager {
   public object: Object3D;
@@ -32,8 +33,16 @@ export default class MarkerManager {
       const object = getNewPrimitive(marker);
       this.objectMap[id] = object;
       this.object.add(object);
+    } else {
+      // We need to create a new geometry when there are more or less points
+      if (this.objectMap[id] instanceof LineSegments) {
+        if (!(this.objectMap[id] as LineSegments).isValid(marker.points)) {
+          this.removeObject(id);
+          this.objectMap[id] = getNewPrimitive(marker);
+          this.object.add(this.objectMap[id]);
+        }
+      }
     }
-
     this.objectMap[id].visible = this.namespaces[marker.ns];
     return this.objectMap[id];
   }

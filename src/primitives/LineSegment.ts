@@ -16,8 +16,13 @@ class LineSegments extends ThreeLineSegments {
   constructor(color = DEFAULT_COLOR_LINE, linewidth = 5) {
     super();
     this.geometry = new Geometry();
+
     this.material = new LineBasicMaterial({ linewidth, color: VertexColors });
-    //this.material.color = VertexColors;
+    // this.material.color = VertexColors;
+  }
+
+  isValid(points: RosMessage.Point[]) {
+    return points.length <= this.geometry.vertices.length;
   }
 
   setColor(color: string | number | RosMessage.Color) {

@@ -162,8 +162,8 @@ class InteractiveMarkers extends LegacyCore {
 
   static makeInteractiveMarkerFeedbackTopic(ros: Ros, name: string) {
     return new ROSLIB.Topic({
-      ros,
-      name,
+      ros: ros,
+      name: name,
       messageType: MESSAGE_TYPE_INTERACTIVEMARKER_FEEDBACK,
     });
   }
@@ -221,7 +221,7 @@ class InteractiveMarkers extends LegacyCore {
         assertIsDefined(this.ros);
         this.feedbackTopic = InteractiveMarkers.makeInteractiveMarkerFeedbackTopic(
           this.ros,
-          options.feedbackTopicName.name,
+          options.feedbackTopicName,
         );
       }
     } else {
