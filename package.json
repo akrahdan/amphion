@@ -1,6 +1,6 @@
 {
   "name": "@robostack/amphion",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "roslibjs based web visualization library",
   "main": "./build/amphion.js",
   "repository": {
@@ -35,8 +35,8 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "build": "rollup -c rollup.config.dev.js",
-    "postbuild": "rollup -c rollup.wasmless.config.dev.js",
+    "build": "rollup -c rollup.config.prod.js",
+    "postbuild": "rollup -c rollup.wasmless.config.prod.js",
     "examples": "webpack-dev-server --config webpack.config.js",
     "lint": "tslint --fix --config tslint.json --project tsconfig.json -t codeFrame 'src/**/*'",
     "prettier": "prettier src/**/* --write",
