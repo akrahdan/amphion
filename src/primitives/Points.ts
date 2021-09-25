@@ -1,24 +1,33 @@
 import {
-  Color,
-  Geometry,
+  BufferGeometry,
   Points as ThreePoints,
   PointsMaterial,
-  Vector3,
-  VertexColors,
+  Float32BufferAttribute,
 } from 'three';
 
 import * as TransformUtils from '../utils/transform';
+import { DEFAULT_BUFFERATTRIBUTE_SIZE, MAX_BUFFERATTRIBUTE_SIZE } from '../utils/constants';
 
 class Points extends ThreePoints {
-  public readonly geometry: Geometry;
+  public readonly geometry: BufferGeometry;
   public readonly material: PointsMaterial;
+  public bufferSize: number;
 
   constructor() {
     super();
-    this.geometry = new Geometry();
+    this.geometry = new BufferGeometry();
+    this.bufferSize = DEFAULT_BUFFERATTRIBUTE_SIZE;
     this.material = new PointsMaterial({
-      color: VertexColors,
+      vertexColors: true,
     });
+    this.initNewBufferAttributes();
+  }
+
+  initNewBufferAttributes = () => {
+    const positions = new Float32Array( this.bufferSize * 3 );
+    this.geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
+    const colors = new Float32Array( this.bufferSize * 3 );
+    this.geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
   }
 
   setTransform(transform: TransformUtils.Transform) {
@@ -35,17 +44,33 @@ class Points extends ThreePoints {
     } = options;
 
     this.material.size = x;
-    this.geometry.vertices = points.map(
-      vertex => new Vector3(vertex.x, vertex.y, vertex.z),
-    );
-    this.geometry.verticesNeedUpdate = true;
 
-    if (colors.length > 0) {
-      this.geometry.colors = colors.map(
-        color => new Color(color.r, color.g, color.b),
-      );
-      this.geometry.colorsNeedUpdate = true;
+
+    if(this.bufferSize < points.length) {
+      this.bufferSize = Math.min(points.length, MAX_BUFFERATTRIBUTE_SIZE);
+      this.initNewBufferAttributes();
     }
+    const positionArray: any = this.geometry.attributes.position.array;
+    for(let i = 0; i < this.bufferSize; i++) {
+      const { x, y, z } = points[i];
+      positionArray[3 * i] = x;
+      positionArray[3 * i + 1] = y;
+      positionArray[3 * i + 2] = z;
+    }
+    this.geometry.attributes.position.needsUpdate = true;
+
+    const colorArray: any = this.geometry.attributes.color.array;
+    if (colors.length > 0) {
+      for(let i = 0; i < Math.min(colors.length, this.bufferSize); i++) {
+        const { r, g, b } = colors[i];
+        colorArray[3 * i] = r;
+        colorArray[3 * i + 1] = g;
+        colorArray[3 * i + 2] = b;
+      }
+      this.geometry.attributes.color.needsUpdate = true;
+    }
+
+    this.geometry.setDrawRange( 0, this.bufferSize );
   }
 
   setScale(scale: RosMessage.Point | number) {

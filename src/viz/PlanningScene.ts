@@ -6,9 +6,9 @@ import {
 } from '../utils/constants';
 import Group from '../primitives/Group';
 import CollisionObject from './CollisionObject';
-import { Ros } from 'roslib';
+import { Ros } from '@robostack/roslib';
 import { assertIsDefined } from '../utils/helpers';
-import { URDFJoint } from 'urdf-js/src/URDFClasses';
+import { URDFJoint } from 'urdf-loader';
 
 class PlanningScene extends LegacyCore {
   private readonly collisionObjectViz = new CollisionObject();
@@ -75,7 +75,7 @@ class PlanningScene extends LegacyCore {
     name.forEach((jointName, index) => {
       const joint = this.object?.getObjectByName(jointName) as URDFJoint;
       if (joint) {
-        joint.setAngle(position[index]);
+        joint.setJointValue(position[index]);
       }
     });
   }

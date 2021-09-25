@@ -1,4 +1,4 @@
-const { open } = require('rosbag');
+import { open } from 'rosbag';
 
 export interface BagReadResult {
   topic: string;
@@ -7,7 +7,7 @@ export interface BagReadResult {
     sec: number;
     nsec: number;
   };
-  data: number[];
+  data: Buffer;
   chunkOffset: number;
   totalChunks: number;
 }
@@ -134,7 +134,7 @@ export default class RosbagBucket {
   async processFile(file: File) {
     const bag = await open(file);
     Object.keys(bag.connections).forEach((id: string) => {
-      const connection = bag.connections[id];
+      const connection = bag.connections[id as any];
       const { topic, type } = connection;
       const existing = this.topics.findIndex(
         x => x.name === topic && x.rosbagFileName === file.name,
@@ -142,7 +142,7 @@ export default class RosbagBucket {
       if (existing === -1) {
         this.topics.push({
           name: topic,
-          messageType: type,
+          messageType: type as any,
           rosbagFileName: file.name,
         });
       }

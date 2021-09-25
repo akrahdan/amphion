@@ -1,6 +1,6 @@
 import debounce from 'lodash.debounce';
-import { ControlsManager, RAYCASTER_EVENTS } from 'three-freeform-controls';
-import ROSLIB, { Ros, Topic } from 'roslib';
+import { ControlsManager, EVENTS as RAYCASTER_EVENTS } from 'three-freeform-controls';
+import { Ros, Topic, Message } from '@robostack/roslib';
 import LegacyCore from '../core';
 import {
   DEFAULT_OPTIONS_INTERACTIVE_MARKER,
@@ -124,7 +124,7 @@ class InteractiveMarkers extends LegacyCore {
       position,
       quaternion,
     } = args;
-    return new ROSLIB.Message({
+    return new Message({
       header: {
         seq,
         frame_id: frameId,
@@ -161,7 +161,7 @@ class InteractiveMarkers extends LegacyCore {
   }
 
   static makeInteractiveMarkerFeedbackTopic(ros: Ros, name: string) {
-    return new ROSLIB.Topic({
+    return new Topic({
       ros: ros,
       name: name,
       messageType: MESSAGE_TYPE_INTERACTIVEMARKER_FEEDBACK,

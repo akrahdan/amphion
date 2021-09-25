@@ -8,6 +8,9 @@ export const OBJECT_TYPE_FLAT_ARROW = 'FlatArrow';
 
 export const MAX_POINTCLOUD_POINTS = 5000000;
 
+export const DEFAULT_BUFFERATTRIBUTE_SIZE = 100;
+export const MAX_BUFFERATTRIBUTE_SIZE = 5000000;
+
 export const DEFAULT_BACKGROUND_COLOR = 0xF0F0F0;
 export const DEFAULT_GRID_SIZE = 30;
 export const DEFAULT_GRID_DIVISIONS = 30;
@@ -339,8 +342,8 @@ export const DEFAULT_OPTIONS_INTERACTIVE_MARKER = {
   namespaces: [],
   throttleRate: 0,
   publishThrottleRate: 0,
-  hideOtherHandlesOnSelect: true,
-  hideOtherControlsInstancesOnSelect: true,
+  hideOtherHandlesOnDrag: true,
+  hideOtherControlsInstancesOnDrag: true,
 };
 
 export const DEFAULT_OPTIONS_ODOMETRY = {

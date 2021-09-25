@@ -1,5 +1,5 @@
 import { RosTopicDataSource } from '../data/rosTopic';
-import { Ros } from 'roslib';
+import { Ros } from '@robostack/roslib';
 import { Object3D } from 'three';
 import { assertIsDefined } from '../utils/helpers';
 import { DataSource } from '../data';

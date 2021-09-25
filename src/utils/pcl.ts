@@ -1,7 +1,14 @@
 import { BufferGeometry, Color } from 'three';
 import { POINT_FIELD_DATATYPES, POINTCLOUD_COLOR_CHANNELS } from './constants';
 import { assertIsBufferAttribute } from './helpers';
-import './attachPCL';
+// import { get_memory as getMemory, PCLDecoder as PCLDecoderWasm } from '../lib/pcl-decoder';
+// import './attachPCL';
+
+// if (!window.WebAssembly) {
+//   import('pcl-decoder').then(module => {
+//     PCLDecoder.attachDecoder(module);
+//   });
+// }
 
 export const getAccessorForDataType = (
   dataView: DataView,
@@ -53,6 +60,8 @@ export const updateGeometryAttribute = (
   attribute.needsUpdate = true;
 };
 
+// const pclDecoderModule = new PCLDecoderWasm();
+// const memory = getMemory();
 export class PCLDecoder {
   static decode(
     message: RosMessage.PointCloud2,
@@ -176,51 +185,58 @@ export class PCLDecoder {
     return { positions, colors, normals };
   }
 
-  static attachDecoder(module: any) {
-    const { get_memory: getMemory, PCLDecoder: PCLDecoderWasm } = module;
-    const pclDecoderModule = new PCLDecoderWasm();
-    const memory = getMemory();
+  // TODO: Enable after figuring out wasm build errors
+  // static decode = (
+  //     message: RosMessage.PointCloud2,
+  //     colorChannel: string,
+  //     useRainbow: boolean,
+  // ) => {
+  //   const n = message.height * message.width;
+  //   const offsets: { [p: string]: number } = {};
+  //   const normals = new Float32Array(3 * n);
+  //
+  //   message.fields.forEach(f => {
+  //     offsets[f.name] = f.offset;
+  //   });
+  //
+  //   const memoryTypedArray = new Uint8Array(memory.buffer);
+  //
+  //   const copyMemPtr = pclDecoderModule.get_copy_memory_ptr();
+  //
+  //   memoryTypedArray.set(message.data, copyMemPtr);
+  //   pclDecoderModule.compute(
+  //     n,
+  //     message.point_step,
+  //     offsets.x,
+  //     offsets.y,
+  //     offsets.z,
+  //     offsets.rgb || 0,
+  //     offsets.intensity || 0,
+  //     colorChannel === POINTCLOUD_COLOR_CHANNELS.INTENSITY,
+  //     useRainbow,
+  //   );
+  //   const positionMemPointer = pclDecoderModule.get_position_memory_ptr();
+  //   const colorMemPointer = pclDecoderModule.get_color_memory_ptr();
+  //   const positions = new Float32Array(
+  //     memory.buffer,
+  //     positionMemPointer,
+  //     3 * n,
+  //   );
+  //   const invalidChannel =
+  //     (colorChannel === POINTCLOUD_COLOR_CHANNELS.INTENSITY &&
+  //       !offsets.intensity) ||
+  //     (colorChannel === POINTCLOUD_COLOR_CHANNELS.RGB && !offsets.rgb);
+  //   const colors = invalidChannel
+  //     ? new Float32Array(3 * n)
+  //     : new Float32Array(memory.buffer, colorMemPointer, 3 * n);
+  //   return { positions, colors, normals };
+  // };
 
-    PCLDecoder.decode = (message, colorChannel, useRainbow) => {
-      const n = message.height * message.width;
-      const offsets: { [p: string]: number } = {};
-      const normals = new Float32Array(3 * n);
-
-      message.fields.forEach(f => {
-        offsets[f.name] = f.offset;
-      });
-
-      const memoryTypedArray = new Uint8Array(memory.buffer);
-
-      const copyMemPtr = pclDecoderModule.get_copy_memory_ptr();
-
-      memoryTypedArray.set(message.data, copyMemPtr);
-      pclDecoderModule.compute(
-        n,
-        message.point_step,
-        offsets.x,
-        offsets.y,
-        offsets.z,
-        offsets.rgb || 0,
-        offsets.intensity || 0,
-        colorChannel === POINTCLOUD_COLOR_CHANNELS.INTENSITY,
-        useRainbow,
-      );
-      const positionMemPointer = pclDecoderModule.get_position_memory_ptr();
-      const colorMemPointer = pclDecoderModule.get_color_memory_ptr();
-      const positions = new Float32Array(
-        memory.buffer,
-        positionMemPointer,
-        3 * n,
-      );
-      const invalidChannel =
-        (colorChannel === POINTCLOUD_COLOR_CHANNELS.INTENSITY &&
-          !offsets.intensity) ||
-        (colorChannel === POINTCLOUD_COLOR_CHANNELS.RGB && !offsets.rgb);
-      const colors = invalidChannel
-        ? new Float32Array(3 * n)
-        : new Float32Array(memory.buffer, colorMemPointer, 3 * n);
-      return { positions, colors, normals };
-    };
-  }
+  // static attachDecoder(module: any) {
+  //   const { get_memory: getMemory, PCLDecoder: PCLDecoderWasm } = module;
+  //   const pclDecoderModule = new PCLDecoderWasm();
+  //   const memory = getMemory();
+  //
+  //   PCLDecoder.
+  // }
 }

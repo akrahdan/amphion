@@ -6,8 +6,8 @@ import {
   MESSAGE_TYPE_DISPLAYTRAJECTORY,
 } from '../utils/constants';
 import Group from '../primitives/Group';
-import { Ros } from 'roslib';
-import { URDFJoint, URDFRobot } from 'urdf-js/src/URDFClasses';
+import { Ros } from '@robostack/roslib';
+import { URDFJoint, URDFRobot } from 'urdf-loader';
 
 class DisplayTrajectory extends LegacyCore {
   private readonly robotClone: URDFRobot;
@@ -86,7 +86,7 @@ class DisplayTrajectory extends LegacyCore {
     initialNames.forEach((name, index) => {
       const joint = this.robotClone.getObjectByName(name) as URDFJoint;
       if (joint) {
-        joint.setAngle(initialPositions[index]);
+        joint.setJointValue(initialPositions[index]);
       }
     });
     points.forEach(point => {
@@ -101,7 +101,7 @@ class DisplayTrajectory extends LegacyCore {
               jointName,
             ) as URDFJoint;
             if (joint) {
-              joint.setAngle(positions[index]);
+              joint.setJointValue(positions[index]);
             }
           });
         }, 1000 * secs + nsec / 1000000),

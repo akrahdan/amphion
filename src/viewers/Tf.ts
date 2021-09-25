@@ -1,10 +1,10 @@
 import { Group, Object3D, Quaternion, Vector3 } from 'three';
-import ROSLIB, { Ros } from 'roslib';
+import { Ros, Topic } from '@robostack/roslib';
 
 import Viewer3d from './3d';
 import { DEFAULT_OPTIONS_TF_VIEWER } from '../utils/constants';
 import URDFCore from '../core/urdf';
-import { URDFRobot } from 'urdf-js/src/URDFClasses';
+import { URDFRobot } from 'urdf-loader';
 
 class TfViewer extends Viewer3d {
   public options: {
@@ -52,7 +52,7 @@ class TfViewer extends Viewer3d {
     // @ts-ignore
     this.ros.getTopics((rosTopics: { topics: string[]; types: string[] }) => {
       ['/tf', '/tf_static'].forEach(name => {
-        const topic = new ROSLIB.Topic({
+        const topic = new Topic({
           ros: this.ros,
           name,
           messageType: rosTopics.types[rosTopics.topics.indexOf(name)],

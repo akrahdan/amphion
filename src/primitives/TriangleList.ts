@@ -1,26 +1,33 @@
 import {
   Color,
   DoubleSide,
-  Face3,
-  FaceColors,
-  Geometry,
+  BufferGeometry,
   MeshBasicMaterial,
-  Vector3,
+  Vector3, Float32BufferAttribute,
 } from 'three';
 
 import Mesh from './Mesh';
+import { DEFAULT_BUFFERATTRIBUTE_SIZE, MAX_BUFFERATTRIBUTE_SIZE } from '../utils/constants';
 
 class TriangleList extends Mesh {
-  public readonly geometry: Geometry;
+  public readonly geometry: BufferGeometry;
   public readonly material: MeshBasicMaterial;
+  public bufferSize: number;
 
   constructor() {
     super();
-    this.geometry = new Geometry();
-    this.material = new MeshBasicMaterial({
-      color: FaceColors,
-    });
+    this.geometry = new BufferGeometry();
+    this.bufferSize = DEFAULT_BUFFERATTRIBUTE_SIZE;
+    this.initNewBufferAttributes();
+    this.material = new MeshBasicMaterial();
     this.material.side = DoubleSide;
+  }
+
+  initNewBufferAttributes = () => {
+    const positions = new Float32Array( this.bufferSize * 3 );
+    this.geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
+    const colors = new Float32Array( this.bufferSize * 3 );
+    this.geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
   }
 
   updatePoints(
@@ -28,43 +35,31 @@ class TriangleList extends Mesh {
     colors: RosMessage.Color[] = [],
     options: { scale: RosMessage.Point },
   ) {
-    const vertices: Vector3[] = [];
-    const faces = [];
     const {
       scale: { x, y, z },
     } = options;
 
     this.scale.set(x, y, z);
-    for (let index = 0, l = points.length / 3; index < l; index++) {
-      const verticesArray = [
-        points[3 * index],
-        points[3 * index + 1],
-        points[3 * index + 2],
-      ];
-      verticesArray.map(side => {
-        vertices.push(new Vector3(side.x, side.y, side.z));
-      });
 
-      const color =
-        colors.length === 0 ? { r: 1, g: 0, b: 0 } : colors[3 * index];
-      faces.push(
-        new Face3(
-          3 * index,
-          3 * index + 2,
-          3 * index + 1,
-          new Vector3(),
-          new Color(color.r, color.g, color.b),
-        ),
-      );
+    if(this.bufferSize < points.length) {
+      this.bufferSize = Math.min(points.length, MAX_BUFFERATTRIBUTE_SIZE);
+      this.initNewBufferAttributes();
     }
+    const positionArray: any = this.geometry.attributes.position.array;
+    for(let i = 0; i < this.bufferSize; i++) {
+      const { x, y, z } = points[i];
+      positionArray[3 * i] = x;
+      positionArray[3 * i + 1] = y;
+      positionArray[3 * i + 2] = z;
+    }
+    this.geometry.attributes.position.needsUpdate = true;
 
-    this.geometry.vertices = vertices;
-    this.geometry.faces = faces;
+    this.geometry.setIndex([...Array(points.length).keys()]);
 
-    this.geometry.computeFaceNormals();
-    this.geometry.computeVertexNormals();
-    this.geometry.elementsNeedUpdate = true;
-    this.geometry.verticesNeedUpdate = true;
+    this.geometry.setDrawRange( 0, this.bufferSize );
+
+    // const color =
+    //   colors.length === 0 ? { r: 1, g: 0, b: 0 } : colors[3 * index];
   }
 }
 

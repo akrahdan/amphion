@@ -1,9 +1,9 @@
-import ROSLIB from 'roslib';
-import Amphion from '../../build/amphion';
+import { Ros } from '@robostack/roslib';
+import Amphion from '../../build/amphion.module';
 import CONFIG from '../config.json';
 
 // Setup ros instance and viewer
-const ros = new ROSLIB.Ros();
+const ros = new Ros();
 const viewer = new Amphion.TfViewer(ros);
 
 viewer.setContainer(document.getElementById('scene'));

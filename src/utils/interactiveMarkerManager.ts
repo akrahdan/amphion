@@ -25,8 +25,8 @@ export default class InteractiveMarkerManager {
     [p: string]: Group & { frameId?: string };
   } = {};
   private readonly viewer: TfViewer;
-  private readonly hideOtherHandlesOnSelect: boolean;
-  private readonly hideOtherControlsInstancesOnSelect: boolean;
+  private readonly hideOtherHandlesOnDrag: boolean;
+  private readonly hideOtherControlsInstancesOnDrag: boolean;
   public visible: boolean;
   public namespaces: { [p: string]: boolean } = {};
   public callback: () => void = () => null;
@@ -34,9 +34,9 @@ export default class InteractiveMarkerManager {
   constructor(rootObject: Object3D, viewer: TfViewer, options: any) {
     this.object = rootObject;
     this.viewer = viewer;
-    this.hideOtherHandlesOnSelect = options.hideOtherHandlesOnSelect;
-    this.hideOtherControlsInstancesOnSelect =
-      options.hideOtherControlsInstancesOnSelect;
+    this.hideOtherHandlesOnDrag = options.hideOtherHandlesOnDrag;
+    this.hideOtherControlsInstancesOnDrag =
+      options.hideOtherControlsInstancesOnDrag;
     this.visible = options.visible;
     this.onChange = this.onChange.bind(this);
   }
@@ -113,16 +113,12 @@ export default class InteractiveMarkerManager {
             ? ANCHOR_MODE.FIXED
             : ANCHOR_MODE.INHERIT;
         const controls = controlsManager.anchor(object, {
-          separationT: {
-            x: 0.4,
-            y: 0.4,
-            z: 0.4,
-          },
+          separation: 0.4,
           orientation: control.orientation,
           mode: attachMode,
-          hideOtherHandlesOnSelect: this.hideOtherHandlesOnSelect,
-          hideOtherControlsInstancesOnSelect: this
-            .hideOtherControlsInstancesOnSelect,
+          hideOtherHandlesOnDrag: this.hideOtherHandlesOnDrag,
+          hideOtherControlsInstancesOnDrag: this
+            .hideOtherControlsInstancesOnDrag,
           showHelperPlane: true,
         });
         controls.scale.set(scale, scale, scale);

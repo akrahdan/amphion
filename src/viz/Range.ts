@@ -43,7 +43,7 @@ class Range extends LiveCore<RosMessage.Range, Group> {
       DEFAULT_RADIAL_SEGMENTS,
       DEFAULT_RADIAL_SEGMENTS,
     );
-    this.cylinder.geometry.verticesNeedUpdate = true;
+    this.cylinder.geometry.attributes.position.needsUpdate = true;
     this.cylinder.position.setX(0.5 * (min + max));
   }
 }

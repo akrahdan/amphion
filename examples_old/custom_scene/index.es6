@@ -8,7 +8,7 @@ import {
   Vector3
 } from 'three';
 
-import ROSLIB from 'roslib';
+import { Ros } from '@robostack/roslib';
 import Amphion from '../../build/amphion';
 import CONFIG from "../config";
 
@@ -62,7 +62,7 @@ function render() {
 }
 
 function addMarker() {
-  const ros = new ROSLIB.Ros();
+  const ros = new Ros();
   ros.connect(CONFIG.ROS_WEBSOCKET_ENDPOINT);
   const marker = new Amphion.Marker(new Amphion.RosTopicDataSource({
     ros: ros,

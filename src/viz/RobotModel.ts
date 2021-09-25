@@ -1,4 +1,4 @@
-import { Ros } from 'roslib';
+import { Ros } from '@robostack/roslib';
 import { Object3D } from 'three';
 import Group from '../primitives/Group';
 import { DEFAULT_OPTIONS_ROBOTMODEL } from '../utils/constants';

@@ -1,8 +1,7 @@
 import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import replace from 'rollup-plugin-replace';
-
-const isExternal = p => !!/^three/.test(p);
+import wasm from '@rollup/plugin-wasm';
 
 export default {
   input: 'src/index.ts',
@@ -23,22 +22,25 @@ export default {
   plugins: [
     replace({
       'process.env.NODE_ENV': JSON.stringify('development'),
+      preventAssignment: true,
     }),
-    typescript({ useTsconfigDeclarationDir: true }),
+    wasm(),
+    typescript({
+      useTsconfigDeclarationDir: true,
+      tsconfigOverride: {
+        compilerOptions: {
+          target: "ES6"
+        },
+      },
+    }),
     commonjs({ extensions: ['.js', '.ts'] }),
   ],
   treeshake: true,
-  external: p => isExternal(p),
+  external: ['@robostack/roslib', 'three', 'three-freeform-controls'],
   output: [
     {
-      format: 'umd',
-      name: 'amphion',
-      file: 'build/amphion.js',
-      sourcemap: true,
-    },
-    {
       format: 'es',
-      file: 'build/amphion.module.js',
+      file: 'build/amphion.js',
     },
   ],
 };

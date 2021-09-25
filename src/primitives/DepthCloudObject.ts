@@ -38,7 +38,7 @@
  */
 
 import {
-  Geometry,
+  BufferGeometry, Float32BufferAttribute,
   Object3D,
   Points,
   ShaderMaterial,
@@ -223,7 +223,7 @@ class DepthCloudObject extends Object3D {
   private metaLoaded = false;
   private video: HTMLImageElement | HTMLVideoElement | undefined;
   private texture: Texture | undefined;
-  private geometry: Geometry | undefined;
+  private geometry: BufferGeometry | undefined;
   private material: ShaderMaterial | undefined;
   private mesh: Points | undefined;
 
@@ -284,15 +284,17 @@ class DepthCloudObject extends Object3D {
     const resolutionFactor = Math.max(width, height) / 1024;
     if (this.metaLoaded) {
       this.texture = new Texture(this.video);
-      this.geometry = new Geometry();
+      this.geometry = new BufferGeometry();
 
       const halfWidth = width / 2;
       const halfHeight = height / 2;
+      const vertices = [];
       for (let i = 0, l = halfWidth * halfHeight; i < l; i += 1) {
-        this.geometry.vertices.push(
-          new Vector3(i % halfWidth, i / halfWidth, 0),
+        vertices.push(
+          i % halfWidth, i / halfWidth, 0
         );
       }
+      this.geometry.setAttribute('position', new Float32BufferAttribute(vertices, 3))
 
       this.material = new ShaderMaterial({
         uniforms: {

@@ -1,6 +1,6 @@
 import {
   FontLoader,
-  Geometry,
+  BufferGeometry,
   Material,
   MeshBasicMaterial,
   TextGeometry,
@@ -9,7 +9,7 @@ import {
 import Mesh from './Mesh';
 
 class Text extends Mesh {
-  public geometry: TextGeometry | Geometry = new Geometry();
+  public geometry: TextGeometry | BufferGeometry = new BufferGeometry();
   public material: MeshBasicMaterial | Material = new Material();
 
   constructor(text: string) {

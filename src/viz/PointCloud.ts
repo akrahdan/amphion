@@ -3,7 +3,6 @@ import {
   BufferGeometry,
   Points,
   PointsMaterial,
-  VertexColors,
   DynamicDrawUsage
 } from 'three';
 import {
@@ -56,7 +55,7 @@ class PointCloud extends LiveCore<RosMessage.PointCloud2, Points> {
     });
     const cloudMaterial = new PointsMaterial({
       size: this.options.size,
-      color: VertexColors,
+      vertexColors: true,
     });
     const geometry = new BufferGeometry();
     geometry.setAttribute(

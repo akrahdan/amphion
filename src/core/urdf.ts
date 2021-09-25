@@ -1,17 +1,14 @@
 import { DefaultLoadingManager, LoadingManager, Object3D } from 'three';
 import { assertIsDefined } from '../utils/helpers';
-import ROSLIB, { Ros } from 'roslib';
+import { Param, Ros } from '@robostack/roslib';
 import { DEFAULT_OPTIONS_ROBOTMODEL } from '../utils/constants';
-// @ts-ignore
-import URDFLoader from 'urdf-js/umd/URDFLoader';
-// @ts-ignore
-import { URDFLink, URDFRobot } from 'urdf-js/umd/URDFClasses';
+import URDFLoader, { URDFLink, URDFRobot } from 'urdf-loader';
 
 class URDFCore<V extends Object3D> extends URDFLoader {
-  private readonly param: ROSLIB.Param;
+  private readonly param: Param;
   protected options: { [k: string]: any };
   private urdfObject?: URDFRobot;
-  private readonly packages: { [packageName: string]: string } = {};
+  public packages: { [packageName: string]: string } = {};
   public object?: V;
 
   constructor(
@@ -22,7 +19,7 @@ class URDFCore<V extends Object3D> extends URDFLoader {
     super(DefaultLoadingManager);
     this.options = options;
     this.packages = options.packages;
-    this.param = new ROSLIB.Param({
+    this.param = new Param({
       ros,
       name: paramName,
     });
@@ -44,12 +41,10 @@ class URDFCore<V extends Object3D> extends URDFLoader {
   }
 
   loadURDF(urdfString: string, onComplete = this.onComplete, options: any) {
-    const urdfObject = super.parse(urdfString, {
-      packages: options.packages || this.packages,
-      loadMeshCb: options.loadMeshCb || this.defaultLoadMeshCallback,
-      fetchOptions: { mode: 'cors', credentials: 'same-origin' },
-      ...options,
-    });
+    this.packages = options.packages || this.packages;
+    this.loadMeshCb = options.loadMeshCb || this.defaultLoadMeshCallback;
+    this.fetchOptions = { mode: 'cors', credentials: 'same-origin' };
+    const urdfObject = super.parse(urdfString);
     assertIsDefined(this.object);
     this.urdfObject = urdfObject;
     this.object.add(urdfObject);
@@ -63,7 +58,7 @@ class URDFCore<V extends Object3D> extends URDFLoader {
     ext: LoadingManager,
     done: (mesh: Object3D) => void,
   ) {
-    super.defaultMeshLoader(path, ext, (mesh: Object3D) => {
+    this.defaultMeshLoader(path, ext, (mesh: Object3D) => {
       done(mesh);
     });
   }
@@ -74,8 +69,8 @@ class URDFCore<V extends Object3D> extends URDFLoader {
       const urdf = parser.parseFromString(robotString, 'text/xml');
       const packages = [...Array.from(urdf.querySelectorAll('mesh'))].map(
         mesh => {
-          const [targetPkg] = mesh
-            ?.getAttribute('filename')
+          const [targetPkg] = (mesh
+            ?.getAttribute('filename') || "")
             ?.replace(/^package:\/\//, '')
             .split(/\/(.+)/);
           return targetPkg;
@@ -88,20 +83,27 @@ class URDFCore<V extends Object3D> extends URDFLoader {
   hide = () => {
     assertIsDefined(this.object);
     Object.values(this.urdfObject?.links ?? []).forEach((link: URDFLink) => {
-      link.hide();
+      link.visible = false;
     });
   };
 
   show = () => {
     assertIsDefined(this.object);
     Object.values(this.urdfObject?.links ?? []).forEach((link: URDFLink) => {
-      link.show();
+      link.visible = true;
     });
   };
 
   destroy = () => {
     Object.values(this.urdfObject?.links ?? []).forEach((link: URDFLink) => {
-      link.delete();
+      if(link.parent) {
+        link.parent.remove(link);
+      }
+      if(link.children) {
+        link.children.map(child => {
+          link.remove(child);
+        });
+      }
     });
     this.object?.parent?.remove(this.object);
     this.object = undefined;

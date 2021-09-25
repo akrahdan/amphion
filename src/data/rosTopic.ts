@@ -1,5 +1,5 @@
 import { DataSource } from './index';
-import { Message, Ros, Topic } from 'roslib';
+import { Message, Ros, Topic } from '@robostack/roslib';
 import xs, { Listener, Producer, Stream } from 'xstream';
 
 interface RosTopicDataSourceOptions {

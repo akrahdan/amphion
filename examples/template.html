@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <title>Basic Example</title>
+  <style>
+    html {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+    #root {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #scene {
+      flex-grow: 1;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<div id="root">
+  <div id="scene"></div>
+</div>
+<script>
+  // Load the script corresponding to url path
+  const exampleName = window.location.pathname.replace(/^\/+|\/+$/g, '');
+  const s = document.createElement("script");
+  s.type = "module";
+  s.src = `/examples/${exampleName}.js`;
+  document.body.appendChild(s);
+
+  // Rename page title
+  const sanitizedTitle = exampleName.replaceAll('-', ' ');
+  const title = sanitizedTitle[0].toUpperCase() + sanitizedTitle.substring(1)
+  document.title = `${title} example | Amphion`;
+</script>
+</body>
+</html>

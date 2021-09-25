@@ -5,7 +5,6 @@ import {
   Points as ThreePoints,
   PointsMaterial,
   TextureLoader,
-  VertexColors,
   DynamicDrawUsage
 } from 'three';
 import { LASERSCAN_STYLES } from './constants';
@@ -63,7 +62,7 @@ class Points {
       size,
       ...options,
     });
-    //this.material.vertexColors = VertexColors;
+    // this.material.vertexColors = VertexColors;
     this.material.transparent = true;
     this.material.opacity = alpha;
 

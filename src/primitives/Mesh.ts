@@ -28,7 +28,6 @@ class Mesh extends THREEMesh {
         material.opacity = MathUtils.clamp(alpha, 0, 1);
       });
     } else {
-      debugger;
       this.material.opacity = MathUtils.clamp(alpha, 0, 1);
     }
   }
