@@ -342,8 +342,8 @@ export const DEFAULT_OPTIONS_INTERACTIVE_MARKER = {
   namespaces: [],
   throttleRate: 0,
   publishThrottleRate: 0,
-  hideOtherHandlesOnDrag: true,
-  hideOtherControlsInstancesOnDrag: true,
+  hideOtherHandlesOnDrag: false,
+  hideOtherControlsInstancesOnDrag: false,
 };
 
 export const DEFAULT_OPTIONS_ODOMETRY = {
