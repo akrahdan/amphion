@@ -28,8 +28,8 @@ class TriangleList extends Mesh {
   initNewBufferAttributes = () => {
     const positions = new Float32Array( this.bufferSize * 3 );
     this.geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
-    const colors = new Float32Array( this.bufferSize * 3 );
-    this.geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
+    const colors = new Float32Array( this.bufferSize * 4 );
+    this.geometry.setAttribute('color', new Float32BufferAttribute(colors, 4));
   }
 
   updatePoints(
@@ -62,15 +62,11 @@ class TriangleList extends Mesh {
     for(let i = 0; i < this.bufferSize; i++) {
       const c = colors[i];
       const { r, g, b, a } = c;
-      colorArray.set([r, g, b], 3 * i);
-      // TODO: Handle alpha
+      colorArray.set([r, g, b, a], 4 * i);
     }
     this.geometry.attributes.color.needsUpdate = true;
 
     this.geometry.setDrawRange( 0, this.bufferSize );
-
-    // const color =
-    //   colors.length === 0 ? { r: 1, g: 0, b: 0 } : colors[3 * index];
   }
 }
 
