@@ -45,7 +45,6 @@ class Points extends ThreePoints {
 
     this.material.size = x;
 
-
     if(this.bufferSize < points.length) {
       this.bufferSize = Math.min(points.length, MAX_BUFFERATTRIBUTE_SIZE);
       this.initNewBufferAttributes();

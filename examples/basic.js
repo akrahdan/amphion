@@ -42,17 +42,17 @@ ros.getTopics((topics) => {
 
 // Marker visualization
 // const markerTopics = [
-  // "/sphere",
-  // "/arrow",
-  // "/cube",
-  // "/points",
-  // "/text_view_facing",
-  // "/sphere_list",
-  // "/cube_list",
-  // "/cylinder",
-  // "/line_strip",
-  // "/line_list",
-  // "/triangle_list"
+//   "/sphere",
+//   "/arrow",
+//   "/cube",
+//   "/points",
+//   "/text_view_facing",
+//   "/sphere_list",
+//   "/cube_list",
+//   "/cylinder",
+//   "/line_strip",
+//   "/line_list",
+//   "/triangle_list"
 // ];
 //
 // markerTopics.map(topic => {
@@ -177,7 +177,6 @@ ros.getTopics((topics) => {
 // const viz = new Amphion.PointCloud(dataSource);
 // viewer.addVisualization(viz);
 // viz.subscribe();
-
 
 // Point
 // const dataSource = new Amphion.RosTopicDataSource({

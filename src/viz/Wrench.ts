@@ -25,6 +25,8 @@ class Wrench extends LiveCore<RosMessage.WrenchStamped, Group> {
       },
     });
     this.object = new Group();
+    // Below line is required since arrow primitives are initialized in the updateOptions
+    this.updateOptions(this.options);
   }
 
   static getNewPrimitive(options: { type: string }) {

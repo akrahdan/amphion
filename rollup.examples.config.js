@@ -47,6 +47,8 @@ export default {
       openPage: "/basic",
       historyApiFallback: true,
     }),
-    livereload(),
+    livereload({
+      delay: 1000,
+    }),
   ]
 };

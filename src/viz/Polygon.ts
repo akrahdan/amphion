@@ -1,22 +1,27 @@
 import { Color } from 'three';
 
-import LegacyCore from '../core';
 import {
   DEFAULT_OPTIONS_POLYGON,
-  MESSAGE_TYPE_POLYGONSTAMPED,
 } from '../utils/constants';
 import Group from '../primitives/Group';
 import Line from '../primitives/Line';
-import { Ros } from '@robostack/roslib';
+import LiveCore from '../core/live';
+import { RosTopicDataSource } from '../data/rosTopic';
 
-class Polygon extends LegacyCore {
+class Polygon extends LiveCore<RosMessage.PolygonStamped, Group> {
   public readonly object: Group;
   private readonly line: Line;
 
-  constructor(ros: Ros, topicName: string, options = DEFAULT_OPTIONS_POLYGON) {
-    super(ros, topicName, MESSAGE_TYPE_POLYGONSTAMPED, {
-      ...DEFAULT_OPTIONS_POLYGON,
-      ...options,
+  constructor(
+    source: RosTopicDataSource<RosMessage.PolygonStamped>,
+    options = DEFAULT_OPTIONS_POLYGON
+  ) {
+    super({
+      sources: [source],
+      options: {
+        ...DEFAULT_OPTIONS_POLYGON,
+        ...options,
+      },
     });
     this.object = new Group();
     this.line = new Line(null, true);
