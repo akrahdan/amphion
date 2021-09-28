@@ -4,10 +4,14 @@ import CONFIG from './config.json';
 
 // Setup ros instance and viewer
 const ros = new Ros();
-ros.on('connection', function() {
+ros.on('connection', () => {
   console.log('Connection made!');
 });
-const viewer = new Amphion.TfViewer(ros);
+const viewer = new Amphion.TfViewer(ros, {
+  backgroundColor: 0x000000,
+  gridColor: 0x222222,
+  gridCenterlineColor: 0x444444,
+});
 
 viewer.setContainer(document.getElementById('scene'));
 ros.connect(CONFIG.ROS_WEBSOCKET_ENDPOINT);
@@ -17,14 +21,14 @@ ros.getTopics((topics) => {
 });
 
 // Path
-// const odomDataSource = new Amphion.RosTopicDataSource({
+// const pathDataSource = new Amphion.RosTopicDataSource({
 //   ros,
 //   topicName: '/path_rosbag',
 //   messageType: Amphion.CONSTANTS.MESSAGE_TYPE_PATH
 // });
-// const odom = new Amphion.Path(odomDataSource);
-// viewer.addVisualization(odom);
-// odom.subscribe();
+// const path = new Amphion.Path(pathDataSource);
+// viewer.addVisualization(path);
+// path.subscribe();
 
 // Odometry visualization
 // const odomDataSource = new Amphion.RosTopicDataSource({
@@ -38,14 +42,17 @@ ros.getTopics((topics) => {
 
 // Marker visualization
 // const markerTopics = [
-//   "/sphere",
-//   "/arrow",
-//   "/cube",
-//   "/points",
-//   "/text_view_facing",
-//   "/sphere_list",
-//   "/cube_list",
-//   "/cylinder",
+  // "/sphere",
+  // "/arrow",
+  // "/cube",
+  // "/points",
+  // "/text_view_facing",
+  // "/sphere_list",
+  // "/cube_list",
+  // "/cylinder",
+  // "/line_strip",
+  // "/line_list",
+  // "/triangle_list"
 // ];
 //
 // markerTopics.map(topic => {

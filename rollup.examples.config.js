@@ -17,7 +17,7 @@ export default {
     format: "esm",
   },
   watch: {
-    include: "examples/**"
+    include: ["examples/**", "build/amphion.js"],
   },
   plugins: [
     json(),

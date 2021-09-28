@@ -1,9 +1,8 @@
 import {
-  Color,
   DoubleSide,
   BufferGeometry,
   MeshBasicMaterial,
-  Vector3, Float32BufferAttribute,
+  Float32BufferAttribute, Color,
 } from 'three';
 
 import Mesh from './Mesh';
@@ -19,7 +18,10 @@ class TriangleList extends Mesh {
     this.geometry = new BufferGeometry();
     this.bufferSize = DEFAULT_BUFFERATTRIBUTE_SIZE;
     this.initNewBufferAttributes();
-    this.material = new MeshBasicMaterial();
+    this.material = new MeshBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+    });
     this.material.side = DoubleSide;
   }
 
@@ -32,7 +34,7 @@ class TriangleList extends Mesh {
 
   updatePoints(
     points: RosMessage.Point[],
-    colors: RosMessage.Color[] = [],
+    colors: RosMessage.ColorRGBA[] = [],
     options: { scale: RosMessage.Point },
   ) {
     const {
@@ -44,17 +46,26 @@ class TriangleList extends Mesh {
     if(this.bufferSize < points.length) {
       this.bufferSize = Math.min(points.length, MAX_BUFFERATTRIBUTE_SIZE);
       this.initNewBufferAttributes();
+    } else {
+      this.bufferSize = points.length;
     }
     const positionArray: any = this.geometry.attributes.position.array;
     for(let i = 0; i < this.bufferSize; i++) {
       const { x, y, z } = points[i];
-      positionArray[3 * i] = x;
-      positionArray[3 * i + 1] = y;
-      positionArray[3 * i + 2] = z;
+      positionArray.set([x, y, z], 3 * i);
     }
     this.geometry.attributes.position.needsUpdate = true;
 
     this.geometry.setIndex([...Array(points.length).keys()]);
+
+    const colorArray: any = this.geometry.attributes.color.array;
+    for(let i = 0; i < this.bufferSize; i++) {
+      const c = colors[i];
+      const { r, g, b, a } = c;
+      colorArray.set([r, g, b], 3 * i);
+      // TODO: Handle alpha
+    }
+    this.geometry.attributes.color.needsUpdate = true;
 
     this.geometry.setDrawRange( 0, this.bufferSize );
 

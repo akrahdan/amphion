@@ -60,9 +60,9 @@ class Points {
     this.material = new PointsMaterial({
       color: 0x888888,
       size,
+      vertexColors: true,
       ...options,
     });
-    // this.material.vertexColors = VertexColors;
     this.material.transparent = true;
     this.material.opacity = alpha;
 

@@ -30,7 +30,7 @@
     "xstream": "^11.11.0"
   },
   "peerDependencies": {
-    "@robostack/roslib": "github:RoboStack/roslibjs#f2b3c42e8139ebc9e185e7c57c645aeff73abf66",
+    "@robostack/roslib": "^2.0.0-rc0",
     "three": "^0.132.2",
     "three-freeform-controls": "^0.2.1"
   },
@@ -85,9 +85,7 @@
     "webpack-dev-server": "^3.7.2"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "hooks": {}
   },
   "lint-staged": {
     "*.{js,ts}": [

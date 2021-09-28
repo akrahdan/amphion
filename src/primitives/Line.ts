@@ -56,9 +56,12 @@ class Line extends ThreeLine {
     if(this.bufferSize < points.length) {
       this.bufferSize = Math.min(points.length, MAX_BUFFERATTRIBUTE_SIZE);
       this.initNewBufferAttributes();
+    } else {
+      this.bufferSize = points.length;
     }
     const positionArray: any = this.geometry.attributes.position.array;
     for(let i = 0; i < this.bufferSize; i++) {
+      // console.log(i, points, points[i]);
       const { x, y, z } = points[i];
       positionArray[3 * i] = x;
       positionArray[3 * i + 1] = y;
@@ -70,15 +73,10 @@ class Line extends ThreeLine {
     for(let i = 0; i < Math.min(colors.length, this.bufferSize); i++) {
       const c = colors[i];
       if (typeof c === 'string' || typeof c === 'number') {
-        const { r, g, b } = new Color(c);
-        colorArray[3 * i] = r;
-        colorArray[3 * i + 1] = g;
-        colorArray[3 * i + 2] = b;
+        colorArray.set(new Color(c).toArray(), 3 * i);
       } else if (c) {
         const { r, g, b } = c;
-        colorArray[3 * i] = r;
-        colorArray[3 * i + 1] = g;
-        colorArray[3 * i + 2] = b;
+        colorArray.set([r, g, b], 3 * i);
       }
     }
     this.geometry.attributes.color.needsUpdate = true;

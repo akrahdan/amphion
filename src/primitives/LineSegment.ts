@@ -41,6 +41,8 @@ class LineSegments extends ThreeLineSegments {
     if(this.bufferSize < points.length) {
       this.bufferSize = Math.min(points.length, MAX_BUFFERATTRIBUTE_SIZE);
       this.initNewBufferAttributes();
+    } else {
+      this.bufferSize = points.length;
     }
     const positionArray: any = this.geometry.attributes.position.array;
     for(let i = 0; i < this.bufferSize; i++) {
