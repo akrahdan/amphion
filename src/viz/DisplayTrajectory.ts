@@ -19,7 +19,7 @@ class DisplayTrajectory extends LegacyCore {
   constructor(
     ros: Ros,
     topicName: string,
-    options = DEFAULT_OPTIONS_DISPLAYTRAJECTORY,
+    options:any = DEFAULT_OPTIONS_DISPLAYTRAJECTORY,
   ) {
     super(ros, topicName, MESSAGE_TYPE_DISPLAYTRAJECTORY, options);
 

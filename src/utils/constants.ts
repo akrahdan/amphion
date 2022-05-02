@@ -43,13 +43,18 @@ export const INTERACTIVE_MARKER_INTERACTION_MODES = {
 export const MESSAGE_TYPE_ROBOT_MODEL = 'robot_description';
 export const MESSAGE_TYPE_ACCELSTAMPED = 'geometry_msgs/AccelStamped';
 export const MESSAGE_TYPE_POINTSTAMPED = 'geometry_msgs/PointStamped';
+export const MESSAGE_TYPE_POINTSTAMPED2 = 'geometry_msgs/msg/PointStamped';
 export const MESSAGE_TYPE_POLYGONSTAMPED = 'geometry_msgs/PolygonStamped';
 export const MESSAGE_TYPE_POSEARRAY = 'geometry_msgs/PoseArray';
+export const MESSAGE_TYPE_POSEARRAY2 = 'geometry_msgs/msg/PoseArray';
 export const MESSAGE_TYPE_POSECOVARIANCE = 'geometry_msgs/PoseWithCovariance';
+export const MESSAGE_TYPE_POSECOVARIANCE2 = 'geometry_msgs/msg/PoseWithCovariance';
 export const MESSAGE_TYPE_POSESTAMPED = 'geometry_msgs/PoseStamped';
+export const MESSAGE_TYPE_POSESTAMPED2 = 'geometry_msgs/msg/PoseStamped';
 export const MESSAGE_TYPE_TWISTSTAMPED = 'geometry_msgs/TwistStamped';
 export const MESSAGE_TYPE_VECTOR3STAMPED = 'geometry_msgs/Vector3Stamped';
 export const MESSAGE_TYPE_WRENCHSTAMPED = 'geometry_msgs/WrenchStamped';
+export const MESSAGE_TYPE_WRENCHSTAMPED2 = 'geometry_msgs/msg/WrenchStamped';
 
 export const MESSAGE_TYPE_BOUNDINGVOLUME = 'moveit_msgs/BoundingVolume';
 export const MESSAGE_TYPE_COLLISION_OBJECT = 'moveit_msgs/CollisionObject';
@@ -58,29 +63,46 @@ export const MESSAGE_TYPE_DISPLAYTRAJECTORY = 'moveit_msgs/DisplayTrajectory';
 export const MESSAGE_TYPE_PLANNINGSCENE = 'moveit_msgs/PlanningScene';
 
 export const MESSAGE_TYPE_OCCUPANCYGRID = 'nav_msgs/OccupancyGrid';
+export const MESSAGE_TYPE_OCCUPANCYGRID2 = 'nav_msgs/msg/OccupancyGrid';
 export const MESSAGE_TYPE_ODOMETRY = 'nav_msgs/Odometry';
+export const MESSAGE_TYPE_ODOMETRY2 = 'nav_msgs/msg/Odometry';
 export const MESSAGE_TYPE_PATH = 'nav_msgs/Path';
+export const MESSAGE_TYPE_PATH2 = 'nav_msgs/msg/Path';
 
 export const MESSAGE_TYPE_COMPRESSEDIMAGE = 'sensor_msgs/CompressedImage';
 export const MESSAGE_TYPE_DISPLAYJOINTSTATE = 'sensor_msgs/JointState';
 export const MESSAGE_TYPE_IMAGE = 'sensor_msgs/Image';
+export const MESSAGE_TYPE_IMAGE2 = 'sensor_msgs/msg/Image';
 export const MESSAGE_TYPE_LASERSCAN = 'sensor_msgs/LaserScan';
+export const MESSAGE_TYPE_LASERSCAN2 = 'sensor_msgs/msg/LaserScan';
 export const MESSAGE_TYPE_MAGNETICFIELD = 'sensor_msgs/MagneticField';
 export const MESSAGE_TYPE_POINTCLOUD = 'sensor_msgs/PointCloud';
 export const MESSAGE_TYPE_POINTCLOUD2 = 'sensor_msgs/PointCloud2';
+export const MESSAGE_TYPE_ROS2POINTCLOUD2 = 'sensor_msgs/msg/PointCloud2';
 export const MESSAGE_TYPE_RANGE = 'sensor_msgs/Range';
+export const MESSAGE_TYPE_RANGE2 = 'sensor_msgs/msg/Range';
 
 export const MESSAGE_TYPE_TF = 'tf/tfMessage';
+export const MESSAGE_TYPE_ROS2_TF = 'tf/msg/tfMessage';
 export const MESSAGE_TYPE_TF2 = 'tf2_msgs/TFMessage';
+export const MESSAGE_TYPE_ROS2_TF2 = 'tf2_msgs/msg/TFMessage';
 
 export const MESSAGE_TYPE_MARKER = 'visualization_msgs/Marker';
+export const MESSAGE_TYPE_MARKER2 = 'visualization_msgs/msg/Marker';
 export const MESSAGE_TYPE_MARKERARRAY = 'visualization_msgs/MarkerArray';
+export const MESSAGE_TYPE_MARKERARRAY2= 'visualization_msgs/msg/MarkerArray';
 export const MESSAGE_TYPE_INTERACTIVEMARKER =
   'visualization_msgs/InteractiveMarkerInit';
+export const MESSAGE_TYPE_INTERACTIVEMARKER2 =
+  'visualization_msgs/msg/InteractiveMarkerInit';
 export const MESSAGE_TYPE_INTERACTIVEMARKER_UPDATE =
   'visualization_msgs/InteractiveMarkerUpdate';
+export const MESSAGE_TYPE_INTERACTIVEMARKER_UPDATE2 =
+  'visualization_msgs/msg/InteractiveMarkerUpdate';
 export const MESSAGE_TYPE_INTERACTIVEMARKER_FEEDBACK =
   'visualization_msgs/InteractiveMarkerFeedback';
+export const MESSAGE_TYPE_INTERACTIVEMARKER_FEEDBACK2 =
+  'visualization_msgs/msg/InteractiveMarkerFeedback';
 
 /** ***************************
  *   Visualizations
@@ -438,21 +460,34 @@ export const DEFAULT_OPTIONS_TF = {};
  * ************************** */
 export const SUPPORTED_MESSAGE_TYPES = [
   MESSAGE_TYPE_IMAGE,
+  MESSAGE_TYPE_IMAGE2,
   MESSAGE_TYPE_LASERSCAN,
+  MESSAGE_TYPE_LASERSCAN2,
   MESSAGE_TYPE_MARKER,
+  MESSAGE_TYPE_MARKER2,
   MESSAGE_TYPE_MARKERARRAY,
+  MESSAGE_TYPE_MARKERARRAY2,
   MESSAGE_TYPE_OCCUPANCYGRID,
+  MESSAGE_TYPE_OCCUPANCYGRID2,
   MESSAGE_TYPE_ODOMETRY,
+  MESSAGE_TYPE_ODOMETRY2,
   MESSAGE_TYPE_PATH,
+  MESSAGE_TYPE_PATH2,
   MESSAGE_TYPE_PLANNINGSCENE,
   MESSAGE_TYPE_POINTCLOUD2,
+  MESSAGE_TYPE_ROS2POINTCLOUD2,
   MESSAGE_TYPE_POLYGONSTAMPED,
   MESSAGE_TYPE_POSESTAMPED,
+  MESSAGE_TYPE_POSESTAMPED2,
   MESSAGE_TYPE_POSEARRAY,
+  MESSAGE_TYPE_POSEARRAY2,
   MESSAGE_TYPE_POSESTAMPED,
+  MESSAGE_TYPE_POSESTAMPED2,
   MESSAGE_TYPE_ROBOT_MODEL,
   MESSAGE_TYPE_TF,
+  MESSAGE_TYPE_ROS2_TF,
   MESSAGE_TYPE_TF2,
+  MESSAGE_TYPE_ROS2_TF2,
 ];
 
 export const UNSUPPORTED_MESSAGE_TYPES = [
