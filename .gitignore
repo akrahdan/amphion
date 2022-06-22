@@ -7,5 +7,5 @@ node_modules
 .idea
 
 examples/**/*.js
-build/
-dist/
+# build/
+# dist/
