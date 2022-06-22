@@ -1,5 +1,5 @@
 {
-  "name": "@robostack/amphion",
+  "name": "amphion",
   "version": "0.1.25",
   "description": "roslibjs based web visualization library",
   "main": "./build/amphion.js",
